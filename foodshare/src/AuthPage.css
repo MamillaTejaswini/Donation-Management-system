@@ -1,0 +1,95 @@
+/* src/components/AuthPage.css */
+
+.auth-container {
+  max-width: 400px;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  background-color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+
+  /* Add these lines for centering */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;       /* responsive width */
+  max-width: 400px; /* max width */
+  box-sizing: border-box;
+}
+
+
+.auth-role-title {
+  font-size: 2rem;
+  color: #00796b;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: left;
+}
+
+.auth-form label {
+  font-weight: 600;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+}
+
+.auth-form input {
+  margin-top: 0.3rem;
+  padding: 0.6rem 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.auth-form input:focus {
+  border-color: #00796b;
+  outline: none;
+}
+
+.auth-submit-btn {
+  margin-top: 1.4rem;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-submit-btn:hover {
+  background-color: #004d40;
+}
+
+.auth-toggle {
+  margin-top: 1.8rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.auth-toggle-btn {
+  background: none;
+  border: none;
+  color: #00796b;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.auth-toggle-btn:hover {
+  color: #004d40;
+}
