@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getDonations } from '../../services/donationService';
+import { Link } from 'react-router-dom';
 
 export default function HistoryPage() {
   const [donations, setDonations] = useState([]);
@@ -41,7 +42,13 @@ export default function HistoryPage() {
 
   return (
     <div className="p-8 w-full">
-        
+      <Link
+  to="/donor/dashboard"
+  className="inline-block text-sm text-gray-600 hover:text-gray-800 border border-gray-300 px-2 py-1 rounded ml-2 mb-4"
+>
+  ← Back
+</Link>
+ 
       <h2 className="text-3xl font-bold mb-6">Donation History</h2>
 
       <div className="w-full overflow-x-auto">

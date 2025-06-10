@@ -27,22 +27,21 @@ const [pickedUpDonations, setPickedUpDonations] = useState(0);
   useEffect(() => {
     // fetch user name and donation counts
     const storedName = localStorage.getItem("fullName");
-    if (storedName) setFullName(storedName);
-
+    if (storedName) setFullName(storedName);   
     async function fetchDonations() {
-      try {
-        const email = localStorage.getItem("email");
-        const response = await fetch(`http://localhost:5000/api/getDonations?email=${email}`); // your API
-        if (!response.ok) throw new Error('Fetch error');
-        const donations = await response.json();
-         console.log("Fetched donations:", donations); 
-        setTotalDonations(donations.length);
-        setClaimedDonations(donations.filter(d => d.status === 'claimed').length);
-        setPickedUpDonations(donations.filter(d => d.status === 'picked').length);
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  try {
+    const email = localStorage.getItem("email");
+    const response = await fetch(`http://localhost:5000/api/donations/donationSummary?email=${email}`);
+    if (!response.ok) throw new Error("Failed to fetch summary");
+    const { total, claimed, picked } = await response.json();
+    setTotalDonations(total);
+    setClaimedDonations(claimed);
+    setPickedUpDonations(picked);
+  } catch (error) {
+    console.error("Error fetching donation summary", error);
+  }
+}
+
 
     fetchDonations();
   }, []);
@@ -107,17 +106,17 @@ const [pickedUpDonations, setPickedUpDonations] = useState(0);
   <div className="p-4 bg-white rounded-lg shadow">
     <h2 className="text-lg font-semibold">Total Donations</h2>
     <p className="text-3xl">{totalDonations}</p>
-    <p className="text-green-600 text-sm">+15% from last month</p>
+    <p className="text-green-600 text-sm">Donated by you</p>
   </div>
   <div className="p-4 bg-white rounded-lg shadow">
     <h2 className="text-lg font-semibold">Donations Claimed</h2>
     <p className="text-3xl">{claimedDonations}</p>
-    <p className="text-green-600 text-sm">+8% from last month</p>
+    <p className="text-green-600 text-sm">claimed</p>
   </div>
   <div className="p-4 bg-white rounded-lg shadow">
     <h2 className="text-lg font-semibold">Donations Picked Up</h2>
     <p className="text-3xl">{pickedUpDonations}</p>
-    <p className="text-green-600 text-sm">+5% from last month</p>
+    <p className="text-green-600 text-sm">picked</p>
   </div>
 </div>
 

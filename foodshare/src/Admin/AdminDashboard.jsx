@@ -14,7 +14,6 @@ const AdminDashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [claimedDonations, setClaimedDonations] = useState(0);
   const [pickedDonations, setPickedDonations] = useState(0);
-  const [responseTime, setResponseTime] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [fullName, setFullName] = useState("");
 
@@ -23,38 +22,25 @@ const AdminDashboard = () => {
     localStorage.clear();
   };
 
-  useEffect(() => {
-    const storedName = localStorage.getItem("fullName");
-    if (storedName) setFullName(storedName);
+useEffect(() => {
+  const storedName = localStorage.getItem("fullName");
+  if (storedName) setFullName(storedName);
 
-    const fetchDashboardStats = async () => {
-      try {
-        const [usersRes, donationsRes] = await Promise.all([
-          fetch("http://localhost:5000/api/admin/users"),
-          fetch("http://localhost:5000/api/admin/donations"),
-        ]);
+  const fetchDashboardStats = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/user/dashboardStats");
+      const data = await res.json();
 
-        const users = await usersRes.json();
-        const donations = await donationsRes.json();
+      setTotalUsers(data.totalUsers || 0);
+      setClaimedDonations(data.claimedDonations || 0);
+      setPickedDonations(data.pickedDonations || 0);
+    } catch (err) {
+      console.error("Dashboard fetch error:", err);
+    }
+  };
 
-        setTotalUsers(users.length);
-
-        setClaimedDonations(donations.filter(d => d.status === "claimed").length);
-        setPickedDonations(donations.filter(d => d.status === "picked").length);
-
-        const totalResponseTime = donations.reduce((sum, d) => {
-          if (d.responseTime) return sum + d.responseTime;
-          return sum;
-        }, 0);
-        const avgResponse = totalResponseTime / (donations.length || 1);
-        setResponseTime(avgResponse.toFixed(2));
-      } catch (err) {
-        console.error("Dashboard fetch error:", err);
-      }
-    };
-
-    fetchDashboardStats();
-  }, []);
+  fetchDashboardStats();
+}, []);
 
   return (
     <div className="flex h-screen overflow-hidden">

@@ -1,6 +1,6 @@
 // AvailableDonations.jsx
 import React, { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 const AvailableDonations = () => {
   const [donations, setDonations] = useState([]);
 
@@ -52,6 +52,12 @@ const handlePickup = async (donationId) => {
 
   return (
     <div className="p-6">
+       <Link
+        to="/volunteer/dashboard"
+        className="inline-block text-sm text-gray-600 hover:text-gray-800 border border-gray-300 px-2 py-1 rounded ml-2 mb-4"
+      >
+        ← Back
+      </Link>
       <h1 className="text-2xl font-bold mb-4">Available Claimed Donations</h1>
       <table className="w-full table-auto border-collapse border border-gray-300">
         <thead className="bg-gray-100">

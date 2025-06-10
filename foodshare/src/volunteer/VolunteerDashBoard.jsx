@@ -25,30 +25,23 @@ const VolunteerDashboard = () => {
   useEffect(() => {
     const storedName = localStorage.getItem("fullName");
     if (storedName) setFullName(storedName);
-
     const fetchDonationStats = async () => {
-      try {
-        const email = localStorage.getItem("email");
-        const response = await fetch(
-          `http://localhost:5000/api/getDonations?email=${email}`
-        );
-        if (!response.ok) throw new Error("Fetch error");
-        const donations = await response.json();
+  try {
+    const email = localStorage.getItem("email");
+    const response = await fetch(
+      `http://localhost:5000/api/donations/volunteerStats/${email}`
+    );
+    if (!response.ok) throw new Error("Fetch error");
+    const data = await response.json();
 
-        setPickedDonations(donations.filter(d => d.status === "picked").length);
-        setAvailableDonations(donations.filter(d => d.status === "available").length);
+    setPickedDonations(data.pickedCount);
+    setAvailableDonations(data.availableCount);
+    setResponseTime(data.avgResponseTime);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-        // Mock response time logic (replace with real API later)
-        const totalResponseTime = donations.reduce((sum, d) => {
-          if (d.responseTime) return sum + d.responseTime;
-          return sum;
-        }, 0);
-        const avgResponse = totalResponseTime / (donations.length || 1);
-        setResponseTime(avgResponse.toFixed(2));
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
     fetchDonationStats();
   }, []);
@@ -109,7 +102,7 @@ const VolunteerDashboard = () => {
             <div className="p-4 bg-white rounded-lg shadow">
               <h2 className="text-lg font-semibold">Donations Picked Up</h2>
               <p className="text-3xl">{pickedDonations}</p>
-              <p className="text-green-600 text-sm">+5% from last month</p>
+              <p className="text-green-600 text-sm">Live now</p>
             </div>
             <div className="p-4 bg-white rounded-lg shadow">
               <h2 className="text-lg font-semibold">Available Donations</h2>

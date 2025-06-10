@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllDonations, deleteDonation } from '../services/donationService';
 import { Trash2 } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 export default function AllDonations() {
   const [donations, setDonations] = useState([]);
   const [filter, setFilter] = useState('All');
@@ -18,23 +18,6 @@ export default function AllDonations() {
       console.error('Failed to fetch donations', err);
     }
   };
-
-  // const handleDelete = async (id) => {
-  //   const confirm = window.confirm("Are you sure you want to delete this donation?");
-  //   if (!confirm) return;
-
-  //   try {
-  //     const success = await deleteDonation(id);
-  //     if (success) {
-  //       alert("Donation deleted successfully");
-  //       setDonations((prev) => prev.filter((d) => d._id !== id));
-  //     } else {
-  //       alert("Failed to delete donation");
-  //     }
-  //   } catch (error) {
-  //     console.error("Deletion error", error);
-  //   }
-  // };
 
 const handleDelete = async (id) => {
   try {
@@ -70,6 +53,12 @@ const handleDelete = async (id) => {
 
   return (
     <div className="p-8 w-full">
+       <Link
+  to="/admin/dashboard"
+  className="inline-block text-sm text-gray-600 hover:text-gray-800 border border-gray-300 px-2 py-1 rounded ml-2 mb-4"
+>
+  ← Back
+</Link>
       <h2 className="text-3xl font-bold mb-6">All Donations</h2>
 
       <div className="flex space-x-4 mb-6">

@@ -1,7 +1,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { fetchAllUsers } from "../services/userServices";
-
+import { Link } from "react-router-dom";
 export default function ActiveUserManagement() {
   const [users, setUsers] = useState([]);
   const [filters, setFilters] = useState({
@@ -76,6 +76,12 @@ export default function ActiveUserManagement() {
 
   return (
     <div className="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+       <Link
+  to="/admin/dashboard"
+  className="inline-block text-sm text-gray-600 hover:text-gray-800 border border-gray-300 px-2 py-1 rounded ml-2 mb-4"
+>
+  ← Back
+</Link>
       <h1 className="text-3xl font-extrabold text-gray-900 mb-4">
         Active Users
       </h1>

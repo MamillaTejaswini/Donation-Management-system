@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getDonations, cancelDonation } from '../../services/donationService';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 export default function MyDonations() {
   const [donations, setDonations] = useState([]);
@@ -73,7 +73,13 @@ const handleEdit = (donation) => {
 
   return (
     <div className="p-8 w-full">
-    
+    <Link
+  to="/donor/dashboard"
+  className="inline-block text-sm text-gray-600 hover:text-gray-800 border border-gray-300 px-2 py-1 rounded ml-2 mb-4"
+>
+  ← Back
+</Link>
+
       <h2 className="text-3xl font-bold mb-6">My Donations</h2>
 
       <div className="flex space-x-4 mb-6">
